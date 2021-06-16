@@ -1,0 +1,9 @@
+:root {
+  --color-primary: #8bdb4a;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+}
