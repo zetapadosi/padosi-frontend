@@ -17,8 +17,8 @@ export default function Home() {
         <Button primary>Log in with Facebook</Button>
         <Button secondary>Log in with Google</Button>
       </div>
-      <div className="absolute bottom-0">
-        <Image src="/community.jpg" height={300} width={350} />
+      <div className="absolute -z-10 -bottom-2 h-[35vh] w-[50vw]">
+        <Image src="/community.jpg" layout="fill" objectFit="contain" objectPosition="bottom" />
       </div>
     </div>
   );
