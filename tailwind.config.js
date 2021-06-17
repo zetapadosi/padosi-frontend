@@ -1,9 +1,29 @@
+const colors = require("tailwindcss/colors");
 module.exports = {
   mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  purge: ["./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class", // or 'media' or 'class'
   theme: {
-    extend: {},
+    boxShadow: {
+      DEFAULT: "0 6px 12px 0 rgba(0, 0, 0, 0.25)",
+    },
+    extend: {
+      fontFamily: {
+        acme: ["Acme", "sans-serif"],
+      },
+      colors: {
+        primary: {
+          light: "#9ed6ff",
+          DEFAULT: "#44b1ff",
+          dark: "#009eeb",
+          bg: "#EAF5FF",
+          translucent: "rgba(68,177,255,.3)",
+        },
+      },
+      zIndex: {
+        "-10": "-10",
+      },
+    },
   },
   variants: {
     extend: {},
