@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
       <div className="absolute top-5 right-5">
         <Toggle enabled={isDarkMode} onClick={() => setIsDarkMode(!isDarkMode)} />
       </div>
-      <div className="h-full dark:bg-gray-800">
+      <div className="h-full bg-primary-bg dark:bg-gray-800">
         <Component {...pageProps} />
       </div>
     </main>
