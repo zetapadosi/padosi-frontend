@@ -1,4 +1,3 @@
-const colors = require("tailwindcss/colors");
 module.exports = {
   mode: "jit",
   purge: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -17,7 +16,6 @@ module.exports = {
           DEFAULT: "#44b1ff",
           dark: "#009eeb",
           bg: "#EAF5FF",
-          translucent: "rgba(68,177,255,.3)",
         },
       },
       zIndex: {
