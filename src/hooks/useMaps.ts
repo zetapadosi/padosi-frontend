@@ -4,7 +4,7 @@ import getService from "../utils/initMaps";
 export default function useMaps(location: { latitude: number; longitude: number }) {
   const mapref = useRef(null);
   const latLngRef = useRef(null);
-  const center = { lat: location.latitude, lng: location.longitude };
+  const center = { lat: location?.latitude, lng: location?.longitude };
   useEffect(() => {
     (async () => {
       const mapDiv = mapref.current as HTMLElement;
