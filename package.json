@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.12.1",
+    "@heroicons/react": "^1.0.1",
     "@reduxjs/toolkit": "^1.6.0",
     "classnames": "^2.2.6",
     "next": "latest",
