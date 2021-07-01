@@ -2,6 +2,7 @@ import Button from "../components/Button";
 import Image from "next/image";
 import Link from "next/link";
 import TextLogo from "../components/TextLogo";
+import Toggle from "./Toggle";
 
 const tagline = "Padosi helps you connect to your neighbors and community.";
 

@@ -3,7 +3,6 @@ import getService from "../utils/initMaps";
 
 export default function usePlaces() {
   const inputref = useRef(null);
-  const georef = useRef(null);
   useEffect(() => {
     (async () => {
       const input = inputref.current as HTMLInputElement;

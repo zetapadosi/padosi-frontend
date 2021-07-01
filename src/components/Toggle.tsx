@@ -1,18 +1,16 @@
 import classnames from "classnames";
 
 export default function Toggle(props: Props) {
-  const { onClick = () => {}, enabled = false, color = false } = props;
+  const { onClick = () => {}, enabled = false } = props;
   return (
     <button
       onClick={onClick}
       type="button"
       className={classnames(
-        "bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none",
+        "bg-primary relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none",
         {
           _p_toggle_enabled: enabled,
           _p_toggle: !enabled,
-          [`bg-green-500`]: enabled && !color,
-          [`bg-${color}-500`]: enabled && color,
         }
       )}
       aria-pressed={enabled}
@@ -36,7 +34,6 @@ export default function Toggle(props: Props) {
 interface Props {
   children?: unknown;
   className?: string;
-  color?: string;
   enabled?: boolean;
   onClick?: () => void;
 }
