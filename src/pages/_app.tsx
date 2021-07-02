@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Provider } from "next-auth/client";
 import Head from "next/head";
 import "tailwindcss/tailwind.css";
 import "../global.css";
@@ -13,7 +14,9 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" type="image/png" href="/favicon.ico" />
       </Head>
       <div className="h-full bg-primary-bg dark:bg-gray-800">
-        <Component {...pageProps} />
+        <Provider session={pageProps.session}>
+          <Component {...pageProps} />
+        </Provider>
       </div>
     </main>
   );

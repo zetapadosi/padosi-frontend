@@ -6,7 +6,7 @@ export default function SelectLocation() {
   const [location, setLocation] = useState(null);
   const [step, setStep] = useState(0);
   return step ? (
-    <ConfirmLocationPage location={location} />
+    <ConfirmLocationPage setStep={setStep} location={location} />
   ) : (
     <SelectLocationPage setStep={setStep} setLocation={setLocation} />
   );

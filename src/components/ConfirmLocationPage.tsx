@@ -4,7 +4,7 @@ import Button from "../components/Button";
 import TextLogo from "../components/TextLogo";
 import { useRouter } from "next/router";
 
-function ConfirmLocationPage({ location }) {
+function ConfirmLocationPage({ location, setStep }) {
   const { mapref, latLngRef } = useMaps(location);
   const router = useRouter();
   return (
@@ -12,7 +12,7 @@ function ConfirmLocationPage({ location }) {
       <nav className="grid grid-cols-3 py-2 px-4 items-center bg-white shadow-sm">
         <Link href="/select-location">
           <a className="justify-self-start">
-            <Button primary pill styles="px-3 py-1 md:px-5 md:py-1">
+            <Button primary pill styles="px-3 py-1 md:px-5 md:py-1" onClick={() => setStep(0)}>
               Back
             </Button>
           </a>

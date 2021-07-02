@@ -1,8 +1,8 @@
+import { signIn } from "next-auth/client";
 import Button from "../components/Button";
 import Image from "next/image";
 import Link from "next/link";
 import TextLogo from "../components/TextLogo";
-import Toggle from "./Toggle";
 
 const tagline = "Padosi helps you connect to your neighbors and community.";
 
@@ -17,20 +17,25 @@ export default function LoginPage() {
         {tagline}
       </h2>
       <div className="w-11/12 z-10 max-w-sm flex flex-col gap-y-6">
-        <Link href="/select-location">
-          <a>
-            <Button primary full styles="shadow">
-              Log in with Facebook
-            </Button>
-          </a>
-        </Link>
-        <Link href="https://padosi-backend.herokuapp.com/api/auth/google">
-          <a>
-            <Button full styles="shadow">
-              Log in with Google
-            </Button>
-          </a>
-        </Link>
+        <Button
+          primary
+          full
+          styles="shadow"
+          onClick={() => {
+            signIn("facebook");
+          }}
+        >
+          Log in with Facebook
+        </Button>
+        <Button
+          full
+          styles="shadow"
+          onClick={() => {
+            signIn("google");
+          }}
+        >
+          Log in with Google
+        </Button>
       </div>
       <div className="absolute -bottom-0 h-[35vh] w-[70vw] animate-fade">
         <Image src="/community.webp" layout="fill" objectFit="contain" objectPosition="bottom" />

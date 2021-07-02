@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import usePlaces from "../hooks/usePlaces";
 import Button from "../components/Button";
+import Input from "../components/Input";
 import TextLogo from "../components/TextLogo";
+import MessageBox from "./MessageBox";
 
 function SelectLocationPage({ setLocation, setStep }) {
   const [doesBrowserSupportGeolocation, setDoesBrowserSupportGeolocation] = useState(false);
   const [address, setAddress] = useState("");
+  const [showMessageBox, setShowMessageBox] = useState(false);
   const { inputref, getGeocoder } = usePlaces();
 
   const geoSuccess = async function (position: {
@@ -21,10 +24,6 @@ function SelectLocationPage({ setLocation, setStep }) {
     if (navigator.geolocation) setDoesBrowserSupportGeolocation(true);
   }, []);
 
-  useEffect(() => {
-    inputref.current.value = address;
-  }, [address]);
-
   return (
     <div className="h-full flex flex-col">
       <nav className="grid grid-cols-3 py-2 px-4 items-center bg-white shadow-sm">
@@ -36,7 +35,6 @@ function SelectLocationPage({ setLocation, setStep }) {
           pill
           styles="justify-self-end px-3 py-1 md:px-5 md:py-1"
           onClick={async () => {
-            const address = inputref.current.value;
             if (address) {
               const geo = await getGeocoder();
               const res = await geo({ address });
@@ -44,7 +42,7 @@ function SelectLocationPage({ setLocation, setStep }) {
               const longitude = res.results[0].geometry.location.lng();
               setLocation({ latitude, longitude });
               setStep(1);
-            } else console.warn("Please select a valid location");
+            } else setShowMessageBox(true);
           }}
         >
           Next
@@ -52,16 +50,22 @@ function SelectLocationPage({ setLocation, setStep }) {
       </nav>
       <section className="container mx-auto max-w-5xl flex-grow flex flex-col gap-5 p-6 lg:p-8">
         <h2 className="font-bold text-lg leading-none">Select Location</h2>
-        <input
+        {showMessageBox && <MessageBox type="error">Please select a valid location</MessageBox>}
+        <Input
           ref={inputref}
           placeholder="Area or Apt. name"
-          className="w-full max-w-5xl p-3 rounded-md"
+          onClick={() => setShowMessageBox(false)}
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
         />
         {doesBrowserSupportGeolocation && (
           <Button
             primary
             styles="max-w-5xl"
-            onClick={() => navigator.geolocation.getCurrentPosition(geoSuccess)}
+            onClick={() => {
+              navigator.geolocation.getCurrentPosition(geoSuccess);
+              setShowMessageBox(false);
+            }}
           >
             Auto-Detect Location
           </Button>

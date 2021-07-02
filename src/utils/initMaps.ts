@@ -32,6 +32,7 @@ export default async function getService(
       });
       const marker = new google.maps.Marker({
         position: map.getCenter(),
+        icon: "/location.png",
         map,
         title: "Home",
       });
