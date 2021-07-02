@@ -1,8 +1,8 @@
 import { signIn } from "next-auth/client";
-import Button from "../components/Button";
+import Button from "../Button";
 import Image from "next/image";
 import Link from "next/link";
-import TextLogo from "../components/TextLogo";
+import TextLogo from "../TextLogo";
 
 const tagline = "Padosi helps you connect to your neighbors and community.";
 
@@ -22,7 +22,7 @@ export default function LoginPage() {
           full
           styles="shadow"
           onClick={() => {
-            signIn("facebook");
+            signIn("facebook", { callbackUrl: "http://localhost:3000/select-location" });
           }}
         >
           Log in with Facebook
@@ -31,7 +31,7 @@ export default function LoginPage() {
           full
           styles="shadow"
           onClick={() => {
-            signIn("google");
+            signIn("google", { callbackUrl: "http://localhost:3000/select-location" });
           }}
         >
           Log in with Google

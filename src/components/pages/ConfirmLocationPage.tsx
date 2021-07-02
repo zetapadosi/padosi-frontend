@@ -1,7 +1,7 @@
 import Link from "next/link";
-import useMaps from "../hooks/useMaps";
-import Button from "../components/Button";
-import TextLogo from "../components/TextLogo";
+import useMaps from "../../hooks/useMaps";
+import Button from "../../components/Button";
+import TextLogo from "../../components/TextLogo";
 import { useRouter } from "next/router";
 
 function ConfirmLocationPage({ location, setStep }) {

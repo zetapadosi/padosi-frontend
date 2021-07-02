@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import usePlaces from "../hooks/usePlaces";
-import Button from "../components/Button";
-import Input from "../components/Input";
-import TextLogo from "../components/TextLogo";
-import MessageBox from "./MessageBox";
+import usePlaces from "../../hooks/usePlaces";
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import TextLogo from "../../components/TextLogo";
+import MessageBox from "../MessageBox";
 
 function SelectLocationPage({ setLocation, setStep }) {
   const [doesBrowserSupportGeolocation, setDoesBrowserSupportGeolocation] = useState(false);

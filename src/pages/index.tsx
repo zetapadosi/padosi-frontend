@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../components/Button";
-import LoginPage from "../components/LoginPage";
-import MainPage from "../components/MainPage";
+import LoginPage from "../components/pages/LoginPage";
+import MainPage from "../components/pages/MainPage";
 import { signOut, useSession } from "next-auth/client";
 
 export default function Index() {

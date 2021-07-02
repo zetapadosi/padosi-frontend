@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ConfirmLocationPage from "../components/ConfirmLocationPage";
-import SelectLocationPage from "../components/SelectLocationPage";
+import ConfirmLocationPage from "../components/pages/ConfirmLocationPage";
+import SelectLocationPage from "../components/pages/SelectLocationPage";
 
 export default function SelectLocation() {
   const [location, setLocation] = useState(null);

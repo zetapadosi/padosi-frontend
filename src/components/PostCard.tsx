@@ -1,4 +1,5 @@
 import { ThumbUpIcon } from "@heroicons/react/outline";
+import Tag from "./Tag";
 
 export default function PostCard() {
   return (
@@ -16,6 +17,13 @@ export default function PostCard() {
             16 December at 08:25
           </span>
         </div>
+      </div>
+      <div className="flex mb-3 gap-2 flex-wrap">
+        <Tag>politics</Tag>
+        <Tag>event</Tag>
+        <Tag>COoking contest</Tag>
+        <Tag>urgent</Tag>
+        <Tag>emergency</Tag>
       </div>
       <p className="text-gray-800 dark:text-gray-100 leading-snug md:leading-normal">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
