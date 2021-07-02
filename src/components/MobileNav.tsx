@@ -1,9 +1,18 @@
 import { CogIcon, HomeIcon, SearchIcon, UserIcon } from "@heroicons/react/outline";
 import classnames from "classnames";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function MobileNav({ home, search, profile, settings }: Props) {
   const router = useRouter();
+
+  useEffect(() => {
+    router.prefetch("/profile");
+    router.prefetch("/search");
+    router.prefetch("/settings");
+    router.prefetch("/new-post");
+  }, []);
+
   return (
     <nav className="bg-white h-10 flex fixed bottom-0 w-full">
       <HomeIcon
