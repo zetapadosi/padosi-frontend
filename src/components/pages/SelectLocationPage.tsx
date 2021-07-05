@@ -25,7 +25,7 @@ function SelectLocationPage({ setLocation, setStep }) {
   }, []);
 
   return (
-    <div className="h-full flex flex-col">
+    <>
       <nav className="grid grid-cols-3 py-2 px-4 items-center bg-white shadow-sm">
         <div className="col-start-2 text-center">
           <TextLogo lg />
@@ -71,8 +71,8 @@ function SelectLocationPage({ setLocation, setStep }) {
           </Button>
         )}
       </section>
-      <footer className="text-center py-3 text-primary">Padosi © 2021</footer>
-    </div>
+      <footer className="fixed bottom-0 w-full text-center py-3 text-primary">Padosi © 2021</footer>
+    </>
   );
 }
 

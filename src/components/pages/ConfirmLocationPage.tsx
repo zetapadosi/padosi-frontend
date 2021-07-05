@@ -8,7 +8,7 @@ function ConfirmLocationPage({ location, setStep }) {
   const { mapref, latLngRef } = useMaps(location);
   const router = useRouter();
   return (
-    <div className="h-full flex flex-col">
+    <>
       <nav className="grid grid-cols-3 py-2 px-4 items-center bg-white shadow-sm">
         <Link href="/select-location">
           <a className="justify-self-start">
@@ -32,15 +32,15 @@ function ConfirmLocationPage({ location, setStep }) {
           Done
         </Button>
       </nav>
-      <section className="container mx-auto max-w-5xl flex-grow flex flex-col gap-5 p-6 lg:p-8">
+      <section className="container mx-auto max-w-5xl flex flex-col gap-5 p-6 lg:p-8">
         <h2 className="font-bold text-lg leading-none">Confirm Location</h2>
         <span className="text-gray-400 text-sm leading-none">
           Click on the map to choose the precise location
         </span>
-        <div ref={mapref} className="h-full w-full max-h-[80%] max-w-5xl" />
+        <div ref={mapref} className="h-96 w-full max-h-[80%] max-w-5xl" />
       </section>
-      <footer className="text-center py-3 text-primary">Padosi © 2021</footer>
-    </div>
+      <footer className="fixed bottom-0 w-full text-center py-3 text-primary">Padosi © 2021</footer>
+    </>
   );
 }
 

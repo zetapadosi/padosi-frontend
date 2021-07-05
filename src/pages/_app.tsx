@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <link rel="icon" type="image/png" href="/favicon.ico" />
       </Head>
-      <div className="h-full bg-primary-bg dark:bg-gray-800">
+      <div className="min-h-full bg-primary-bg dark:bg-gray-800">
         <Provider session={pageProps.session}>
           <Component {...pageProps} />
         </Provider>
