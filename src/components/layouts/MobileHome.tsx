@@ -1,4 +1,5 @@
 import Link from "next/link";
+import classnames from "classnames";
 import MobileNav from "../MobileNav";
 import Button from "../Button";
 import { PlusIcon } from "@heroicons/react/outline";
@@ -7,9 +8,9 @@ export default function MobileHome({ children, home, search, profile, settings }
   return (
     <>
       <div
-        className={`container mx-auto max-w-2xl flex flex-col gap-4 ${
-          home || profile ? "pb-20" : "p-3"
-        }`}
+        className={classnames("container mx-auto max-w-2xl flex flex-col gap-4 p-3", {
+          ["pb-20"]: home || profile,
+        })}
       >
         {children}
       </div>

@@ -7,7 +7,7 @@ import { TrendingUpIcon, SupportIcon } from "@heroicons/react/outline";
 export default function SearchPage() {
   return (
     <MobileHome search>
-      <Input placeholder="Enter Tags (Press enter after each tag)" />
+      <Input placeholder="Enter tags separated with a comma ( , )" />
       <Button full primary>
         Search
       </Button>

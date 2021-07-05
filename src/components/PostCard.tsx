@@ -1,4 +1,5 @@
-import { ThumbUpIcon } from "@heroicons/react/outline";
+import Link from "next/link";
+import { ThumbUpIcon, DotsVerticalIcon } from "@heroicons/react/outline";
 import Tag from "./Tag";
 
 const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -16,10 +17,10 @@ const previewText = text.substr(0, 300);
 
 export default function PostCard() {
   return (
-    <div className="px-5 py-4 bg-white dark:bg-gray-800 shadow-sm">
+    <div className="relative px-5 py-4 bg-white dark:bg-gray-800 shadow-sm rounded-lg">
       <div className="flex mb-4">
         <img
-          className="w-12 h-12 rounded-lg"
+          className="w-12 h-12 rounded-full"
           src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
         />
         <div className="ml-2 mt-0.5">
@@ -30,6 +31,7 @@ export default function PostCard() {
             16 December at 08:25
           </span>
         </div>
+        <DotsVerticalIcon className="w-5 absolute right-6 top-6 text-gray-400" />
       </div>
       <div className="flex mb-3 gap-2 flex-wrap">
         <Tag>politics</Tag>
@@ -41,7 +43,9 @@ export default function PostCard() {
       <p className="text-gray-800 dark:text-gray-100 leading-snug md:leading-normal">
         {previewText}...
       </p>
-      <span className="text-blue-500">Read More</span>
+      <Link href="/post/id">
+        <a className="text-blue-500">Read More</a>
+      </Link>
       <div className="flex justify-between items-center mt-5">
         <div className="flex">
           <ThumbUpIcon className="w-5 text-gray-500" />

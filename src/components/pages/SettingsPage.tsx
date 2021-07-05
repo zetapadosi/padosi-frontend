@@ -8,10 +8,13 @@ export default function SettingsPage() {
           Profile
         </span>
         <span className="border-[1px] border-gray-300 font-medium py-4 px-4 block hover:bg-gray-100 transition duration-150">
-          Theme
+          Appearance
         </span>
         <span className="border-[1px] border-gray-300 font-medium py-4 px-4 block hover:bg-gray-100 transition duration-150">
-          Radius
+          Location
+        </span>
+        <span className="border-[1px] text-red-600 border-gray-300 font-medium py-4 px-4 block hover:bg-gray-100 transition duration-150">
+          Logout
         </span>
       </div>
     </MobileHome>

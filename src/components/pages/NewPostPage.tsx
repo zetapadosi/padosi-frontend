@@ -1,5 +1,10 @@
 import MobileHome from "../layouts/MobileHome";
+import NewPost from "../NewPost";
 
 export default function NewPostPage() {
-  return <MobileHome> Write your new post please</MobileHome>;
+  return (
+    <MobileHome>
+      <NewPost />
+    </MobileHome>
+  );
 }
