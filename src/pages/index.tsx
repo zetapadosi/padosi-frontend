@@ -1,20 +1,18 @@
-import { useState } from "react";
-import Button from "../components/Button";
+import { useRouter } from "next/router";
+import FullPageLoader from "../components/FullPageLoader";
 import LoginPage from "../components/pages/LoginPage";
-import MainPage from "../components/pages/MainPage";
-import { signOut, useSession } from "next-auth/client";
+import useAppSession from "../hooks/useAppSession";
 
 export default function Index() {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [session, loading] = useSession();
-  console.log(session);
-  if (loading) return null;
-  if (session)
-    return (
-      <div className="">
-        <h1>Hello {session.user.name}</h1>
-        <Button onClick={() => signOut({ callbackUrl: "http://localhost:3000" })}>Sign out</Button>
-      </div>
-    );
-  return <LoginPage />;
+  const { loading, authenticated, registrationStarted } = useAppSession();
+  const router = useRouter();
+  if (loading) return <FullPageLoader />;
+  else {
+    if (authenticated) {
+      router.replace("/home");
+    } else if (registrationStarted) {
+      router.replace("/select-location");
+    } else return <LoginPage />;
+  }
+  return null;
 }

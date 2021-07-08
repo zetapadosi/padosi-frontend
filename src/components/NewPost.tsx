@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { createPost } from "../api/post";
+import { useAppSelector } from "../hooks/useRedux";
 import Button from "./Button";
 import Tag from "./Tag";
+
 export default function NewPost() {
   const [tags, setTags] = useState([]);
-
+  const [postText, setPostText] = useState("");
+  const userId = useAppSelector((state) => state.user.userId);
   return (
     <>
       <textarea
@@ -13,6 +17,11 @@ export default function NewPost() {
         id="post-text"
         placeholder="What's on your mind?"
         maxLength={2000}
+        value={postText}
+        onChange={(e) => {
+          const inp = e.target as HTMLTextAreaElement;
+          setPostText(inp.value);
+        }}
       />
       <input
         className="rounded-lg w-full p-3"
@@ -44,7 +53,24 @@ export default function NewPost() {
           <span className="text-sm text-gray-400">Add atleast one tag</span>
         )}
       </div>
-      <Button primary>Post</Button>
+      <Button
+        primary
+        onClick={() => {
+          const post = {
+            postText,
+            tags,
+          };
+
+          console.log(JSON.stringify(post));
+
+          const main = async () => {
+            const res = await createPost(userId, post);
+          };
+          main();
+        }}
+      >
+        Post
+      </Button>
     </>
   );
 }

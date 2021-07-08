@@ -3,10 +3,17 @@ import useMaps from "../../hooks/useMaps";
 import Button from "../../components/Button";
 import TextLogo from "../../components/TextLogo";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
+import { register } from "../../api/user";
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/userSlice";
 
 function ConfirmLocationPage({ location, setStep }) {
   const { mapref, latLngRef } = useMaps(location);
   const router = useRouter();
+  const [session] = useSession();
+  const dispatch = useDispatch();
   return (
     <>
       <nav className="grid grid-cols-3 py-2 px-4 items-center bg-white shadow-sm">
@@ -21,9 +28,44 @@ function ConfirmLocationPage({ location, setStep }) {
           <TextLogo lg />
         </div>
         <Button
-          onClick={() => {
-            console.log(latLngRef.current.lat(), latLngRef.current.lng());
-            router.push("/home");
+          onClick={async () => {
+            const user = {
+              name: session.user.name,
+              email: session.user.email,
+              picture: session.user.image,
+              userFrom: localStorage.getItem("userFrom"),
+              latitude: latLngRef.current.lat(),
+              longitude: latLngRef.current.lng(),
+            };
+            console.log(user);
+            const res = await register(user);
+            if (res.statusCode === 200) {
+              Cookies.set("t", res.value.token);
+              console.log(res);
+              const user = res.value.user;
+              const { userId, name, bio, picture } = user;
+              const date = new Date(user.createdAt);
+              const joined =
+                date.toDateString().split(" ")[1] + " " + date.toDateString().split(" ")[3];
+              const followers = user.followers.length;
+              const following = user.following.length;
+              const lng = user.location.coordinates[0];
+              const lat = user.location.coordinates[1];
+              dispatch(
+                setUser({
+                  isLoggedIn: true,
+                  userId,
+                  name,
+                  bio,
+                  picture,
+                  joined,
+                  followers,
+                  following,
+                  location: { lat, lng },
+                })
+              );
+              router.push("/home");
+            }
           }}
           primary
           pill

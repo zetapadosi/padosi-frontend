@@ -35,9 +35,12 @@ function SelectLocationPage({ setLocation, setStep }) {
           pill
           styles="justify-self-end px-3 py-1 md:px-5 md:py-1"
           onClick={async () => {
-            if (address) {
+            if (inputref.current.value) {
+              const address = inputref.current.value;
               const geo = await getGeocoder();
               const res = await geo({ address });
+              // console.log(inputref.current.value);
+              // console.log(res);
               const latitude = res.results[0].geometry.location.lat();
               const longitude = res.results[0].geometry.location.lng();
               setLocation({ latitude, longitude });

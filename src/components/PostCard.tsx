@@ -2,57 +2,83 @@ import Link from "next/link";
 import { ThumbUpIcon, DotsVerticalIcon } from "@heroicons/react/outline";
 import Tag from "./Tag";
 
-const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem
-ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+export default function PostCard({
+  full,
+  comments,
+  createdAt,
+  likes,
+  postText,
+  name,
+  picture,
+  tags,
+}: Props) {
+  const d = new Date(createdAt);
+  const date = d.toDateString();
+  const time = d.toLocaleTimeString();
+  const text = postText;
+  const previewText = text.substr(0, 300);
 
-const previewText = text.substr(0, 300);
-
-export default function PostCard() {
   return (
-    <div className="relative px-5 py-4 bg-white dark:bg-gray-800 shadow-sm rounded-lg">
+    <div className="relative px-5 py-4 bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
       <div className="flex mb-4">
-        <img
-          className="w-12 h-12 rounded-full"
-          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-        />
+        <img className="w-12 h-12 rounded-full" src={picture} />
         <div className="ml-2 mt-0.5">
           <span className="block font-medium text-base leading-snug text-black dark:text-gray-100">
-            Loyce Kuvalis
+            {name}
           </span>
           <span className="block text-sm text-gray-500 dark:text-gray-400 font-light leading-snug">
-            16 December at 08:25
+            {date} at {time}
           </span>
         </div>
         <DotsVerticalIcon className="w-5 absolute right-6 top-6 text-gray-400" />
       </div>
       <div className="flex mb-3 gap-2 flex-wrap">
-        <Tag>politics</Tag>
-        <Tag>event</Tag>
-        <Tag>COoking contest</Tag>
-        <Tag>urgent</Tag>
-        <Tag>emergency</Tag>
+        {tags.map((tag, i) => (
+          <Tag key={`${i} ${tag}`}>{tag}</Tag>
+        ))}
       </div>
-      <p className="text-gray-800 dark:text-gray-100 leading-snug md:leading-normal">
-        {previewText}...
+      <p className="text-gray-800 dark:text-gray-100 leading-snug md:leading-normal whitespace-pre-wrap">
+        {full ? text : previewText + "..."}
       </p>
-      <Link href="/post/id">
-        <a className="text-blue-500">Read More</a>
-      </Link>
+      {!full && (
+        <Link href="/post/id">
+          <a className="text-blue-500">Read More</a>
+        </Link>
+      )}
       <div className="flex justify-between items-center mt-5">
         <div className="flex">
           <ThumbUpIcon className="w-5 text-gray-500" />
-          <span className="ml-1 text-gray-500 dark:text-gray-400  font-light">8</span>
+          <span className="ml-1 text-gray-500 dark:text-gray-400  font-light">{likes.length}</span>
         </div>
-        <div className="ml-1 text-gray-500 dark:text-gray-400 font-light">33 comments</div>
+        <div className="ml-1 text-gray-500 dark:text-gray-400 font-light">
+          {comments.length} comments
+        </div>
       </div>
+      {full && (
+        <>
+          <h3 className="mb-4 mt-4 text-lg font-semibold text-gray-900">Comments</h3>
+          <div className="flex items-center">
+            <img
+              className="w-9 h-9 rounded-full"
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+            />
+            <div className="ml-2 flex-grow">
+              <input className="w-full border-2 p-2 rounded-md" placeholder="Write a comment.." />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
+}
+
+interface Props {
+  full?: boolean;
+  comments: Array<Object>;
+  createdAt: string;
+  likes: Array<Object>;
+  postText: string;
+  name: string;
+  picture: string;
+  tags: Array<String>;
 }
