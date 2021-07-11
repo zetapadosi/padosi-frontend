@@ -6,7 +6,8 @@ export default function PostCardList({ posts }) {
       {posts.map((post) => {
         return (
           <PostCard
-            key={post.id}
+            key={post.postId}
+            postId={post.postId}
             comments={post.comments}
             createdAt={post.createdAt}
             likes={post.likes}
@@ -14,6 +15,7 @@ export default function PostCardList({ posts }) {
             name={post.postedBy.name}
             picture={post.postedBy.picture}
             tags={post.tags}
+            userId={post.postedBy.userId}
           />
         );
       })}

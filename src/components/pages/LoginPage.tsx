@@ -1,9 +1,7 @@
 import { signIn as oAuthLogin } from "next-auth/client";
 import Button from "../Button";
 import Image from "next/image";
-import Link from "next/link";
 import TextLogo from "../TextLogo";
-import { signOut, useSession } from "next-auth/client";
 
 const tagline = "Padosi helps you connect to your neighbors and community.";
 

@@ -32,7 +32,9 @@ export default function MobileHome({ children, home, search, profile, post, sett
           </a>
         </Link>
       )}
-      <MobileNav home={home} search={search} profile={profile} settings={settings} />
+      <div className="lg:hidden">
+        <MobileNav home={home} search={search} profile={profile} settings={settings} />
+      </div>
     </>
   );
 }

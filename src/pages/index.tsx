@@ -7,12 +7,12 @@ export default function Index() {
   const { loading, authenticated, registrationStarted } = useAppSession();
   const router = useRouter();
   if (loading) return <FullPageLoader />;
-  else {
-    if (authenticated) {
-      router.replace("/home");
-    } else if (registrationStarted) {
-      router.replace("/select-location");
-    } else return <LoginPage />;
-  }
+
+  if (authenticated) {
+    router.replace("/home");
+  } else if (registrationStarted) {
+    router.replace("/select-location");
+  } else return <LoginPage />;
+
   return null;
 }

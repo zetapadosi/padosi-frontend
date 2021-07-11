@@ -19,11 +19,12 @@ export default function useAppSession() {
   useEffect(() => {
     console.log("test1");
 
-    if (isLoggedIn) {
-      setLoading(false);
-      setAuthenticated(true);
-      return;
-    } else if (!sLoading) {
+    // if (isLoggedIn) {
+    //   setLoading(false);
+    //   setAuthenticated(true);
+    //   return;
+    // } else
+    if (!sLoading) {
       console.log("test2");
       if (session) {
         console.log("test3");
@@ -78,5 +79,5 @@ export default function useAppSession() {
     }
   }, [sLoading]);
   console.log(loading, authenticated);
-  return { loading, authenticated, registrationStarted };
+  return { loading, authenticated, registrationStarted, isLoggedIn };
 }

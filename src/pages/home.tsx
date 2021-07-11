@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import FullPageLoader from "../components/FullPageLoader";
 
 export default function Home() {
-  const { loading, authenticated } = useAppSession();
+  const { loading, authenticated, isLoggedIn } = useAppSession();
 
+  if (authenticated || isLoggedIn) return <MainPage />;
   if (loading) return <FullPageLoader />;
-  if (authenticated) return <MainPage />;
   return null;
 }

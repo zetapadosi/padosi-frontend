@@ -12,7 +12,7 @@ export default function MainPage() {
   useEffect(() => {
     const main = async () => {
       const res = await getWallPosts(userId);
-      console.log(res);
+      console.log(res.value);
       setPosts(res.value);
       setLoading(false);
     };

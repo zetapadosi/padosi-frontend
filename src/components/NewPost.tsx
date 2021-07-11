@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { createPost } from "../api/post";
 import { useAppSelector } from "../hooks/useRedux";
@@ -7,6 +8,7 @@ import Tag from "./Tag";
 export default function NewPost() {
   const [tags, setTags] = useState([]);
   const [postText, setPostText] = useState("");
+  const router = useRouter();
   const userId = useAppSelector((state) => state.user.userId);
   return (
     <>
@@ -46,7 +48,7 @@ export default function NewPost() {
                 setTags(temp);
               }}
             >
-              <Tag>{tag}</Tag>
+              <Tag removeable>{tag}</Tag>
             </div>
           ))
         ) : (
@@ -64,7 +66,8 @@ export default function NewPost() {
           console.log(JSON.stringify(post));
 
           const main = async () => {
-            const res = await createPost(userId, post);
+            await createPost(userId, post);
+            router.push("/home");
           };
           main();
         }}

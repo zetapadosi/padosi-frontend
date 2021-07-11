@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ThumbUpIcon, DotsVerticalIcon } from "@heroicons/react/outline";
 import Tag from "./Tag";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function PostCard({
   full,
@@ -11,17 +13,22 @@ export default function PostCard({
   name,
   picture,
   tags,
+  userId,
+  postId,
 }: Props) {
   const d = new Date(createdAt);
   const date = d.toDateString();
   const time = d.toLocaleTimeString();
   const text = postText;
   const previewText = text.substr(0, 300);
+  const router = useRouter();
 
   return (
     <div className="relative px-5 py-4 bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
-      <div className="flex mb-4">
-        <img className="w-12 h-12 rounded-full" src={picture} />
+      <div className="flex mb-4 w-max" onClick={() => router.push(`/profile/${userId}`)}>
+        <div className="relative rounded-full h-12 w-12 overflow-hidden">
+          <Image src={picture} layout="fill" />
+        </div>
         <div className="ml-2 mt-0.5">
           <span className="block font-medium text-base leading-snug text-black dark:text-gray-100">
             {name}
@@ -30,17 +37,18 @@ export default function PostCard({
             {date} at {time}
           </span>
         </div>
-        <DotsVerticalIcon className="w-5 absolute right-6 top-6 text-gray-400" />
       </div>
+      <DotsVerticalIcon className="w-5 absolute right-6 top-6 text-gray-400" />
       <div className="flex mb-3 gap-2 flex-wrap">
         {tags.map((tag, i) => (
           <Tag key={`${i} ${tag}`}>{tag}</Tag>
         ))}
       </div>
       <p className="text-gray-800 dark:text-gray-100 leading-snug md:leading-normal whitespace-pre-wrap">
-        {full ? text : previewText + "..."}
+        {full ? text : previewText}
+        {text !== previewText && "..."}
       </p>
-      {!full && (
+      {!full && text !== previewText && (
         <Link href="/post/id">
           <a className="text-blue-500">Read More</a>
         </Link>
@@ -50,9 +58,13 @@ export default function PostCard({
           <ThumbUpIcon className="w-5 text-gray-500" />
           <span className="ml-1 text-gray-500 dark:text-gray-400  font-light">{likes.length}</span>
         </div>
-        <div className="ml-1 text-gray-500 dark:text-gray-400 font-light">
-          {comments.length} comments
-        </div>
+        <Link href="/post/id">
+          <a className="text-blue-500">
+            <div className="ml-1 text-gray-500 dark:text-gray-400 font-light">
+              {comments.length} comments
+            </div>
+          </a>
+        </Link>
       </div>
       {full && (
         <>
@@ -76,6 +88,8 @@ interface Props {
   full?: boolean;
   comments: Array<Object>;
   createdAt: string;
+  postId: string;
+  userId: string;
   likes: Array<Object>;
   postText: string;
   name: string;

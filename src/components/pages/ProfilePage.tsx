@@ -1,5 +1,6 @@
 import { LocationMarkerIcon, CalendarIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import usePlaces from "../../hooks/usePlaces";
 import { useAppSelector } from "../../hooks/useRedux";
 import MobileHome from "../layouts/MobileHome";
@@ -17,30 +18,33 @@ export default function ProfilePage() {
   const { getGeocoder } = usePlaces();
   const [area, setArea] = useState("");
 
-  useEffect(() => {
-    const main = async () => {
-      const geo = await getGeocoder();
-      const res = await geo({ location });
-      // console.log(res);
-      setArea(res.results[0].formatted_address);
-    };
-    main();
-  });
+  // useEffect(() => {
+  //   const main = async () => {
+  //     const geo = await getGeocoder();
+  //     const res = await geo({ location });
+  //     // console.log(res);
+  //     setArea(res.results[0].formatted_address);
+  //   };
+  //   main();
+  // });
 
   return (
     <MobileHome profile>
       <div className="p-4">
         <div className="flex items-center">
-          <img className="w-28 h-w-28 rounded-full" src={picture} />
-          <div className="flex-grow ml-6">
+          <div className="relative rounded-full h-28 w-28 min-w-[7rem] overflow-hidden">
+            <Image src={picture} layout="fill" />
+          </div>
+          <div className="ml-6">
             <div className="">
-              <span className="block mb-3 font-medium text-xl text-black dark:text-gray-100">
+              <span className="block mb-2 font-medium text-xl text-black dark:text-gray-100">
                 {name}
               </span>
               <div className="text-sm text-gray-500 dark:text-gray-400">
                 <span className="block">
                   <span className="flex items-center gap-2">
-                    <LocationMarkerIcon className="inline w-5" /> {area}
+                    <LocationMarkerIcon className="inline w-5 min-w-[1.25rem]" />
+                    <span>Random Vihar</span>
                   </span>
                 </span>
                 <span className="block mb-2 mt-1">
