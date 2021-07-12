@@ -1,28 +1,33 @@
-import { useEffect, useState } from "react";
-import { getWallPosts } from "../../api/post";
+import { useGetWallPostsQuery } from "../../api/padosiApi";
 import { useAppSelector } from "../../hooks/useRedux";
 import FullPageLoader from "../FullPageLoader";
 import MobileHome from "../layouts/MobileHome";
+import NewPostButton from "../NewPostButton";
 import PostCardList from "../PostCardList";
 
 export default function MainPage() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const userId = useAppSelector((state) => state.user.userId);
-  useEffect(() => {
-    const main = async () => {
-      const res = await getWallPosts(userId);
-      console.log(res.value);
-      setPosts(res.value);
-      setLoading(false);
-    };
-    main();
-  }, []);
+
+  const { data: posts, isLoading } = useGetWallPostsQuery(userId);
 
   return (
     <MobileHome home>
-      {loading && <FullPageLoader />}
-      {posts?.length ? <PostCardList posts={posts} /> : null}
+      {isLoading ? (
+        <FullPageLoader />
+      ) : posts?.value.length > 0 ? (
+        <>
+          <PostCardList posts={posts.value} />
+          <NewPostButton />
+        </>
+      ) : (
+        posts?.value.length === 0 && (
+          <div className="mt-[50%] flex flex-col px-8 gap-5 font-semibold text-center justify-center">
+            Welcome to Padosi! Seems like there are no posts in your area yet. Why not be the first
+            one to create!
+            <NewPostButton text />
+          </div>
+        )
+      )}
     </MobileHome>
   );
 }
