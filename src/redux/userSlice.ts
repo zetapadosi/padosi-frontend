@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface UserState {
   isLoggedIn: boolean;
-  userId: string;
   name: string;
   bio: string;
   picture: string;
@@ -10,11 +9,11 @@ export interface UserState {
   followers: number;
   following: number;
   location: { lat: number; lng: number };
+  area: string;
 }
 
 const initialState: UserState = {
   isLoggedIn: false,
-  userId: null,
   name: null,
   bio: null,
   picture: null,
@@ -22,6 +21,7 @@ const initialState: UserState = {
   followers: null,
   following: null,
   location: { lat: null, lng: null },
+  area: null,
 };
 
 export const userSlice = createSlice({
@@ -33,7 +33,6 @@ export const userSlice = createSlice({
     },
     setUser: (state, action: PayloadAction<UserState>) => {
       const {
-        userId,
         name,
         bio,
         picture,
@@ -42,9 +41,9 @@ export const userSlice = createSlice({
         following,
         location,
         isLoggedIn,
+        area,
       } = action.payload;
       state.isLoggedIn = isLoggedIn;
-      state.userId = userId;
       state.name = name;
       state.bio = bio;
       state.picture = picture;
@@ -52,10 +51,10 @@ export const userSlice = createSlice({
       state.followers = followers;
       state.following = following;
       state.location = location;
+      state.area = area;
     },
     clearUser: (state) => {
       state.isLoggedIn = false;
-      state.userId = null;
       state.name = null;
       state.bio = null;
       state.picture = null;
@@ -63,6 +62,7 @@ export const userSlice = createSlice({
       state.followers = null;
       state.following = null;
       state.location = { lat: null, lng: null };
+      state.area = null;
     },
   },
 });

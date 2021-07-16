@@ -5,6 +5,7 @@ import usePlaces from "../../hooks/usePlaces";
 import { useAppSelector } from "../../hooks/useRedux";
 import MobileHome from "../layouts/MobileHome";
 import PostCardList from "../PostCardList";
+import { getUserPosts } from "../../api/user";
 
 export default function ProfilePage() {
   const name = useAppSelector((state) => state.user.name);
@@ -15,18 +16,28 @@ export default function ProfilePage() {
   const location = useAppSelector((state) => state.user.location);
   const bio = useAppSelector((state) => state.user.bio);
 
+  const userId = useAppSelector((state) => state.user.userId);
+
   const { getGeocoder } = usePlaces();
   const [area, setArea] = useState("");
 
+  useEffect(() => {
+    const main = async () => {
+      const geo = await getGeocoder();
+      const res = await geo({ location });
+      // console.log(res);
+      setArea(res.results[0].formatted_address);
+    };
+    main();
+  });
+
   // useEffect(() => {
   //   const main = async () => {
-  //     const geo = await getGeocoder();
-  //     const res = await geo({ location });
-  //     // console.log(res);
-  //     setArea(res.results[0].formatted_address);
+  //     const res = await getUserPosts(userId);
+  //     console.log(res);
   //   };
   //   main();
-  // });
+  // }, []);
 
   return (
     <MobileHome profile>
@@ -44,7 +55,7 @@ export default function ProfilePage() {
                 <span className="block">
                   <span className="flex items-center gap-2">
                     <LocationMarkerIcon className="inline w-5 min-w-[1.25rem]" />
-                    <span>Random Vihar</span>
+                    <span>{area}</span>
                   </span>
                 </span>
                 <span className="block mb-2 mt-1">

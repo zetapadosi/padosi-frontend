@@ -2,9 +2,7 @@ import axios from "../utils/axiosInstance";
 
 export const getWallPosts = async (page: number) => {
   try {
-    let response = await axios.get(
-      `https://padosi-backend.herokuapp.com/api/post/wall?page=${page}&limit=10`
-    );
+    let response = await axios.get(`post/wall?page=${page}&limit=10`);
     return response.data.value;
   } catch (err) {
     console.error(err);

@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useCreatePostMutation } from "../api/padosiApi";
 import { createPost } from "../api/post";
 import { useAppSelector } from "../hooks/useRedux";
 import Button from "./Button";
@@ -9,7 +10,6 @@ export default function NewPost() {
   const [tags, setTags] = useState([]);
   const [postText, setPostText] = useState("");
   const router = useRouter();
-  const userId = useAppSelector((state) => state.user.userId);
   return (
     <>
       <textarea
@@ -66,7 +66,7 @@ export default function NewPost() {
           console.log(JSON.stringify(post));
 
           const main = async () => {
-            await createPost(userId, post);
+            await createPost(post);
             router.push("/home");
           };
           main();

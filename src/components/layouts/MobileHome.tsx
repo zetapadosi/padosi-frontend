@@ -9,7 +9,7 @@ export default function MobileHome({ children, home, search, profile, post, sett
     <>
       <div
         className={classnames("container mx-auto max-w-2xl flex flex-col gap-4 p-3", {
-          ["pb-20"]: home || profile || post,
+          ["pb-20"]: home || profile || post || search,
         })}
       >
         {children}

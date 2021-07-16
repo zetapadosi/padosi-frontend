@@ -10,13 +10,21 @@ export const padosiApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Post"],
   endpoints: (build) => ({
     getWallPosts: build.query({
-      query: (userId) => `post/wall/${userId}?page=0&limit=10`,
+      query: ({ userId, page }) => `post/wall/${userId}?limit=3&page=${page}`,
       transformResponse: (response) => response.value,
       providesTags: (result, error, id) => [{ type: "Post", id }],
+    }),
+    createPost: build.mutation({
+      query: ({ id, postBody }) => ({
+        url: `post/create/${id}`,
+        method: "POST",
+        body: postBody,
+      }),
     }),
   }),
 });
 
-export const { useGetWallPostsQuery } = padosiApi;
+export const { useGetWallPostsQuery, useCreatePostMutation } = padosiApi;

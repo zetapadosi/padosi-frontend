@@ -1,11 +1,11 @@
 import NewPostPage from "../components/pages/NewPostPage";
-import useAppSession from "../hooks/useAppSession";
 import FullPageLoader from "../components/FullPageLoader";
+import useAppSession from "../hooks/useAppSession";
 
 export default function NewPost() {
-  const { loading, authenticated, isLoggedIn } = useAppSession();
+  const { loading, isLoggedIn } = useAppSession();
 
-  if (authenticated || isLoggedIn) return <NewPostPage />;
+  if (isLoggedIn) return <NewPostPage />;
   if (loading) return <FullPageLoader />;
   return null;
 }
