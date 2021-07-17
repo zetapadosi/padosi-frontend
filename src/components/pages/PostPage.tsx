@@ -21,7 +21,7 @@ export default function PostPage() {
 
   useEffect(() => {
     const main = async () => {
-      const data = await getPost(id);
+      const data = await getPost(id as string);
       console.log(data);
       setPost(data);
       setIsLoading(false);
@@ -30,24 +30,6 @@ export default function PostPage() {
   }, []);
 
   return (
-    <MobileHome post>
-      {isLoading ? (
-        <FullPageLoader />
-      ) : (
-        <PostCard
-          full
-          key={post.postId}
-          postId={post.postId}
-          comments={post.comments}
-          createdAt={post.createdAt}
-          likes={post.likes}
-          postText={post.postText}
-          name={post.postedBy.name}
-          picture={post.postedBy.picture}
-          tags={post.tags}
-          postedBy={post.postedBy.userId}
-        />
-      )}
-    </MobileHome>
+    <MobileHome post>{isLoading ? <FullPageLoader /> : <PostCard full {...post} />}</MobileHome>
   );
 }

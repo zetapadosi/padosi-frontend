@@ -22,17 +22,7 @@ export const register = async (user: User) => {
     return response.data;
   } catch (err) {
     console.error(err);
-  }
-};
-
-export const getUserPosts = async (userId?: string) => {
-  try {
-    let response;
-    if (userId) response = await axios.get(`user/${userId}`);
-    else response = await axios.get("user");
-    return response.data.value.userPost;
-  } catch (err) {
-    console.error(err);
+    if (err.response.data) return err.response.data;
   }
 };
 
@@ -41,7 +31,7 @@ export const getUserProfile = async (userId?: string) => {
     let response;
     if (userId) response = await axios.get(`user/${userId}`);
     else response = await axios.get("user");
-    return response.data.value.user;
+    return response.data.value;
   } catch (err) {
     console.error(err);
   }
@@ -49,7 +39,7 @@ export const getUserProfile = async (userId?: string) => {
 
 export const updateBio = async (bio: { bioText: string }) => {
   try {
-    let response = await axios.post("user/bio", bio);
+    let response = await axios.put("user/bio", bio);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -58,7 +48,7 @@ export const updateBio = async (bio: { bioText: string }) => {
 
 export const updateDistance = async (distance: { distance: number }) => {
   try {
-    let response = await axios.post("user/distance", distance);
+    let response = await axios.put("user/distance", distance);
     return response.data;
   } catch (err) {
     console.error(err);

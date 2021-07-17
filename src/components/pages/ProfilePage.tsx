@@ -1,88 +1,102 @@
-import { LocationMarkerIcon, CalendarIcon } from "@heroicons/react/outline";
+import { LocationMarkerIcon, CalendarIcon, PencilAltIcon } from "@heroicons/react/outline";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import usePlaces from "../../hooks/usePlaces";
 import { useAppSelector } from "../../hooks/useRedux";
 import MobileHome from "../layouts/MobileHome";
 import PostCardList from "../PostCardList";
-import { getUserPosts } from "../../api/user";
+import { getUserProfile } from "../../api/user";
+import { useRouter } from "next/router";
 
 export default function ProfilePage() {
-  const name = useAppSelector((state) => state.user.name);
-  const picture = useAppSelector((state) => state.user.picture);
-  const followers = useAppSelector((state) => state.user.followers);
-  const following = useAppSelector((state) => state.user.following);
-  const joined = useAppSelector((state) => state.user.joined);
-  const location = useAppSelector((state) => state.user.location);
-  const bio = useAppSelector((state) => state.user.bio);
+  const [page, setPage] = useState(0);
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
+  const [isSelfProfile, setIsSelfProfile] = useState(false);
+  const [userData, setUserData] = useState({
+    picture: null,
+    name: null,
+    area: null,
+    joined: null,
+    bio: null,
+  });
 
-  const userId = useAppSelector((state) => state.user.userId);
+  let user = useAppSelector((state) => state.user);
 
-  const { getGeocoder } = usePlaces();
-  const [area, setArea] = useState("");
+  const router = useRouter();
+  const { id } = router.query;
+  console.log(id);
 
   useEffect(() => {
     const main = async () => {
-      const geo = await getGeocoder();
-      const res = await geo({ location });
-      // console.log(res);
-      setArea(res.results[0].formatted_address);
+      setIsLoading(true);
+      const profileId = id as string;
+      console.log({ profileId, current: user.userId });
+      if (profileId === user.userId) {
+        setUserData(user);
+        setIsSelfProfile(true);
+      } else {
+        setIsSelfProfile(false);
+      }
+      const data = await getUserProfile(profileId);
+      console.log(data);
+      if (profileId !== user.userId) setUserData(data.user);
+      data.userPost.reverse();
+      const postsArray = data.userPost;
+      if (postsArray.length < 10) setHasMore(false);
+      setPosts(postsArray);
+      setIsLoading(false);
     };
     main();
-  });
-
-  // useEffect(() => {
-  //   const main = async () => {
-  //     const res = await getUserPosts(userId);
-  //     console.log(res);
-  //   };
-  //   main();
-  // }, []);
+  }, [id]);
 
   return (
-    <MobileHome profile>
+    <MobileHome profile={isSelfProfile}>
       <div className="p-4">
         <div className="flex items-center">
           <div className="relative rounded-full h-28 w-28 min-w-[7rem] overflow-hidden">
-            <Image src={picture} layout="fill" />
+            <Image src={userData.picture || "/logo.png"} layout="fill" />
           </div>
           <div className="ml-6">
             <div className="">
-              <span className="block mb-2 font-medium text-xl text-black dark:text-gray-100">
-                {name}
+              <span className="block mb-1 font-medium text-xl text-black dark:text-gray-100">
+                {userData.name}
               </span>
               <div className="text-sm text-gray-500 dark:text-gray-400">
-                <span className="block">
-                  <span className="flex items-center gap-2">
-                    <LocationMarkerIcon className="inline w-5 min-w-[1.25rem]" />
-                    <span>{area}</span>
-                  </span>
+                <span className="mb-1 flex items-center gap-2">
+                  <LocationMarkerIcon className="inline w-5 min-w-[1.25rem]" />
+                  <span>{userData.area || "Random Vihar"}</span>
                 </span>
-                <span className="block mb-2 mt-1">
-                  <span className="flex items-center gap-2">
-                    <CalendarIcon className="inline w-5" /> Joined {joined}
+                <span className="mb-1 flex items-center gap-2">
+                  <CalendarIcon className="inline w-5" />
+                  <span>Joined {userData.joined}</span>
+                </span>
+                <span className="flex items-center gap-2">
+                  <PencilAltIcon className="inline w-5" />
+                  <span>
+                    {!isLoading && <span className="font-medium">{posts.length} </span>}
+                    {posts.length === 1 ? "post" : "posts"}
                   </span>
                 </span>
               </div>
             </div>
           </div>
         </div>
-        <span className="flex justify-around mt-3 text-sm text-gray-500 dark:text-gray-400">
-          <span>
-            <span className="font-medium">23</span> posts
-          </span>
-          <span>•</span>
-          <span>
-            <span className="font-medium">{followers}</span> followers
-          </span>
-          <span>•</span>
-          <span>
-            <span className="font-medium">{following}</span> following
-          </span>
-        </span>
-        <div className="mt-3 leading-tight text-sm font-medium dark:text-gray-100">{bio}</div>
+        {userData.bio && (
+          <div className="mt-3 leading-tight text-sm font-medium dark:text-gray-100">
+            {userData.bio}
+          </div>
+        )}
       </div>
-      <PostCardList posts={[]} />
+      <PostCardList
+        profile
+        posts={posts}
+        page={page}
+        setPosts={setPosts}
+        setPage={setPage}
+        hasMore={hasMore}
+        isLoading={isLoading}
+      />
     </MobileHome>
   );
 }

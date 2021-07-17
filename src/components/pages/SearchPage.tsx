@@ -8,43 +8,82 @@ import { useAppSelector } from "../../hooks/useRedux";
 import { searchPostsByTags } from "../../api/post";
 import FullPageLoader from "../FullPageLoader";
 import PostCardList from "../PostCardList";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useRouter } from "next/router";
 
 export default function SearchPage() {
-  const userId = useAppSelector((state) => state.user.userId);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const [searchStarted, setSearchStarted] = useState(false);
+  const router = useRouter();
+  const urlTags = router.query.tags;
+
+  const searchHandler = async () => {
+    setSearchStarted(true);
+    setLoading(true);
+    setHasMore(true);
+    const tags = inputRef.current.value
+      .toLowerCase()
+      .split(",")
+      .map((tag) => tag.trim());
+    console.log(page, tags);
+
+    const postsData = await searchPostsByTags(page, {
+      tags,
+    });
+    console.log(postsData);
+
+    if (postsData.length < 10) setHasMore(false);
+    setPosts(postsData);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (urlTags) {
+      inputRef.current.value = urlTags;
+      searchHandler();
+    }
+  }, [urlTags]);
 
   return (
     <MobileHome search>
       <div className="relative">
-        <Input ref={inputRef} placeholder="Enter tags separated with a comma ( , )" />
+        <Input
+          onKeyPress={(e) => {
+            if (e.key === "Enter") searchHandler();
+          }}
+          ref={inputRef}
+          placeholder="Enter tags separated with a comma ( , )"
+        />
         {inputRef.current?.value && (
           <XIcon
-            className="w-4 absolute right-4 top-5"
+            className="w-4 absolute right-4 top-5 cursor-pointer"
             onClick={() => {
               setPosts([]);
               inputRef.current.value = "";
+              setSearchStarted(false);
             }}
           />
         )}
       </div>
-      <Button
-        full
-        primary
-        onClick={async () => {
-          setLoading(true);
-          const tags = inputRef.current.value.split(",").map((tag) => tag.trim());
-          const postsData = await searchPostsByTags(userId, {
-            tags,
-          });
-          setPosts(postsData);
-          setLoading(false);
-        }}
-      >
+      <Button full primary onClick={searchHandler}>
         Search
       </Button>
-      <div className="mt-5">{loading ? <FullPageLoader /> : <PostCardList posts={posts} />}</div>
+      <div className="mt-5">
+        <PostCardList
+          search
+          searchStarted={searchStarted}
+          posts={posts}
+          page={page}
+          setPosts={setPosts}
+          setPage={setPage}
+          hasMore={hasMore}
+          isLoading={loading}
+        />
+      </div>
     </MobileHome>
   );
 }

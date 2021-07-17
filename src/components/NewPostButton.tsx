@@ -10,7 +10,10 @@ export default function NewPostButton({ text }: Props) {
           <Button primary>Create Post</Button>
         </a>
       ) : (
-        <a className="rounded-full bg-primary h-11 w-11 p-2 fixed bottom-14 right-6 text-white shadow-sm">
+        <a
+          title="Create New Post"
+          className="rounded-full bg-primary h-11 w-11 p-2 fixed bottom-14 right-6 text-white shadow-sm"
+        >
           <PlusIcon className="h-full w-full" />
         </a>
       )}

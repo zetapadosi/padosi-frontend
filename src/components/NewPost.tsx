@@ -1,23 +1,24 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useCreatePostMutation } from "../api/padosiApi";
 import { createPost } from "../api/post";
 import { useAppSelector } from "../hooks/useRedux";
 import Button from "./Button";
 import Tag from "./Tag";
 
 export default function NewPost() {
+  const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState([]);
   const [postText, setPostText] = useState("");
   const router = useRouter();
   return (
     <>
+      <h3 className="font-bold text-left text-xl p-2 text-primary">Create New Post</h3>
       <textarea
         className="rounded-lg w-full p-3 resize-none"
         rows={10}
         name="post-text"
         id="post-text"
-        placeholder="What's on your mind?"
+        placeholder="What's up in the neighborhood? (min. 30 characters)"
         maxLength={2000}
         value={postText}
         onChange={(e) => {
@@ -47,29 +48,29 @@ export default function NewPost() {
                 temp.splice(i, 1);
                 setTags(temp);
               }}
+              className="cursor-pointer"
             >
               <Tag removeable>{tag}</Tag>
             </div>
           ))
         ) : (
-          <span className="text-sm text-gray-400">Add atleast one tag</span>
+          <span className="text-sm text-gray-400 ml-3">Add atleast one tag</span>
         )}
       </div>
       <Button
         primary
-        onClick={() => {
+        disabled={postText.length < 30}
+        isLoading={loading}
+        onClick={async () => {
+          setLoading(true);
           const post = {
             postText,
             tags,
           };
-
           console.log(JSON.stringify(post));
-
-          const main = async () => {
-            await createPost(post);
-            router.push("/home");
-          };
-          main();
+          await createPost(post);
+          setLoading(false);
+          router.push("/home");
         }}
       >
         Post

@@ -21,7 +21,8 @@ export const signIn = async (user: { email: string; userFrom: "google" | "facebo
     let response = await axios.post("auth/login", user);
     return response.data;
   } catch (err) {
-    console.error(err);
+    console.log(err);
+    if (err.response) return err.response.data;
   }
 };
 

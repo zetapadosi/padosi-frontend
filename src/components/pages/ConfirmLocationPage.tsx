@@ -8,9 +8,13 @@ import { register } from "../../api/user";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/userSlice";
+import usePlaces from "../../hooks/usePlaces";
+import { useState } from "react";
 
 function ConfirmLocationPage({ location, setStep }) {
   const { mapref, latLngRef } = useMaps(location);
+  const { getGeocoder } = usePlaces();
+
   const router = useRouter();
   const [session] = useSession();
   const dispatch = useDispatch();
@@ -27,23 +31,34 @@ function ConfirmLocationPage({ location, setStep }) {
         <div className="col-start-2 text-center">
           <TextLogo lg />
         </div>
+
         <Button
           onClick={async () => {
+            const geo = await getGeocoder();
+            const loc = await geo({
+              location: { lat: latLngRef.current.lat(), lng: latLngRef.current.lng() },
+            });
+            const area = loc.results[0].address_components.find(
+              (address) =>
+                address.types.includes("political") || address.types.includes("political")
+            ).short_name;
+
             const user = {
               name: session.user.name,
               email: session.user.email,
               picture: session.user.image,
-              userFrom: localStorage.getItem("userFrom"),
+              userFrom: localStorage.getItem("userFrom") as "google" | "facebook",
               latitude: latLngRef.current.lat(),
               longitude: latLngRef.current.lng(),
+              area,
             };
+
             console.log(user);
             const res = await register(user);
             if (res.statusCode === 200) {
-              Cookies.set("t", res.value.token);
               console.log(res);
-              const user = res.value.user;
-              const { userId, name, bio, picture } = user;
+              const user = res.value;
+              const { userId, name, bio, picture, _id } = user;
               const date = new Date(user.createdAt);
               const joined =
                 date.toDateString().split(" ")[1] + " " + date.toDateString().split(" ")[3];
@@ -55,6 +70,7 @@ function ConfirmLocationPage({ location, setStep }) {
                 setUser({
                   isLoggedIn: true,
                   userId,
+                  _id,
                   name,
                   bio,
                   picture,
@@ -62,9 +78,12 @@ function ConfirmLocationPage({ location, setStep }) {
                   followers,
                   following,
                   location: { lat, lng },
+                  area,
                 })
               );
               router.push("/home");
+            } else {
+              router.push("/");
             }
           }}
           primary

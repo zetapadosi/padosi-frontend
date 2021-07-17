@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface UserState {
   isLoggedIn: boolean;
+  userId: string;
+  _id: string;
   name: string;
   bio: string;
   picture: string;
@@ -15,6 +17,8 @@ export interface UserState {
 const initialState: UserState = {
   isLoggedIn: false,
   name: null,
+  userId: null,
+  _id: null,
   bio: null,
   picture: null,
   joined: null,
@@ -37,6 +41,8 @@ export const userSlice = createSlice({
         bio,
         picture,
         joined,
+        userId,
+        _id,
         followers,
         following,
         location,
@@ -44,6 +50,8 @@ export const userSlice = createSlice({
         area,
       } = action.payload;
       state.isLoggedIn = isLoggedIn;
+      state.userId = userId;
+      state._id = _id;
       state.name = name;
       state.bio = bio;
       state.picture = picture;
@@ -55,6 +63,8 @@ export const userSlice = createSlice({
     },
     clearUser: (state) => {
       state.isLoggedIn = false;
+      state.userId = null;
+      state._id = null;
       state.name = null;
       state.bio = null;
       state.picture = null;

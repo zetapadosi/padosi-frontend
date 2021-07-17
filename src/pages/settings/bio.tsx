@@ -1,11 +1,12 @@
 import FullPageLoader from "../../components/FullPageLoader";
-import PostPage from "../../components/pages/PostPage";
+import EditBioPage from "../../components/pages/EditBioPage";
+
 import useAppSession from "../../hooks/useAppSession";
 
-export default function Profile() {
+export default function Bio() {
   const { loading, isLoggedIn } = useAppSession();
 
-  if (isLoggedIn) return <PostPage />;
+  if (isLoggedIn) return <EditBioPage />;
   if (loading) return <FullPageLoader />;
   return null;
 }

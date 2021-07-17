@@ -34,13 +34,13 @@ export default function useAppSession() {
       }
       const main = async () => {
         const res = await signIn({ email, userFrom });
-        console.log(res);
 
         if (res.status === "USER_NOT_FOUND") {
           setRegistrationStarted(true);
+          setLoading(false);
         } else if (res.status === "SIGNED_SUCCESS") {
           const user = res.value;
-          const { name, bio, picture, area } = user;
+          const { name, bio, picture, area, userId, _id } = user;
           const date = new Date(user.createdAt);
           const joined =
             date.toDateString().split(" ")[1] + " " + date.toDateString().split(" ")[3];
@@ -51,6 +51,8 @@ export default function useAppSession() {
           dispatch(
             setUser({
               isLoggedIn: true,
+              userId,
+              _id,
               name,
               bio,
               picture,

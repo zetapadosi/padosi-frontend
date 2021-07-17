@@ -17,6 +17,8 @@ function SelectLocationPage({ setLocation, setStep }) {
     const pos = { lat: position.coords.latitude, lng: position.coords.longitude };
     const geo = await getGeocoder();
     const res = await geo({ location: pos });
+    console.log(res);
+
     setAddress(res.results[0].formatted_address);
   };
 
@@ -43,7 +45,9 @@ function SelectLocationPage({ setLocation, setStep }) {
               // console.log(res);
               const latitude = res.results[0].geometry.location.lat();
               const longitude = res.results[0].geometry.location.lng();
+
               setLocation({ latitude, longitude });
+
               setStep(1);
             } else setShowMessageBox(true);
           }}

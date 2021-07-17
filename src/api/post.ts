@@ -27,6 +27,15 @@ export const createPost = async (post: { tags: string[]; postText: string }) => 
   }
 };
 
+export const deletePost = async (postId: string) => {
+  try {
+    let response = await axios.delete(`post/remove/${postId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const searchPostsByTags = async (page: number, tags: { tags: string[] }) => {
   try {
     let response = await axios.post(`post/search?page=${page}&limit=10`, tags);

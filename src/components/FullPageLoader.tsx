@@ -1,6 +1,6 @@
 export default function FullPageLoader() {
   return (
-    <div className="flex items-center justify-center w-full pt-[50%]">
+    <div className="flex items-center justify-center h-full w-full pt-10">
       <div className="flex justify-center items-center space-x-1 text-sm text-gray-700">
         <svg
           fill="none"
