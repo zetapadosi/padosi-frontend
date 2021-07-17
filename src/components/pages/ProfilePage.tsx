@@ -25,13 +25,13 @@ export default function ProfilePage() {
 
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
+  // console.log(id);
 
   useEffect(() => {
     const main = async () => {
       setIsLoading(true);
       const profileId = id as string;
-      console.log({ profileId, current: user.userId });
+      // console.log({ profileId, current: user.userId });
       if (profileId === user.userId) {
         setUserData(user);
         setIsSelfProfile(true);
@@ -39,7 +39,7 @@ export default function ProfilePage() {
         setIsSelfProfile(false);
       }
       const data = await getUserProfile(profileId);
-      console.log(data);
+      // console.log(data);
       if (profileId !== user.userId) setUserData(data.user);
       data.userPost.reverse();
       const postsArray = data.userPost;

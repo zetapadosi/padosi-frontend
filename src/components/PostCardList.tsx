@@ -17,7 +17,7 @@ export default function PostCardList(props) {
     searchStarted,
   } = props;
 
-  console.log(posts);
+  // console.log(posts);
 
   if (isLoading) return <FullPageLoader />;
   if (posts?.length > 0)

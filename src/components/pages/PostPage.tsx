@@ -22,7 +22,7 @@ export default function PostPage() {
   useEffect(() => {
     const main = async () => {
       const data = await getPost(id as string);
-      console.log(data);
+      // console.log(data);
       setPost(data);
       setIsLoading(false);
     };

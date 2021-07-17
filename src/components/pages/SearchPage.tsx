@@ -29,12 +29,12 @@ export default function SearchPage() {
       .toLowerCase()
       .split(",")
       .map((tag) => tag.trim());
-    console.log(page, tags);
+    // console.log(page, tags);
 
     const postsData = await searchPostsByTags(page, {
       tags,
     });
-    console.log(postsData);
+    // console.log(postsData);
 
     if (postsData.length < 10) setHasMore(false);
     setPosts(postsData);

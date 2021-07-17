@@ -13,7 +13,7 @@ export default function MainPage() {
   useEffect(() => {
     const main = async () => {
       const data = await getWallPosts(page);
-      console.log(data);
+      // console.log(data);
       if (data.length < 10) setHasMore(false);
       setPosts([...posts, ...data]);
       setIsLoading(false);

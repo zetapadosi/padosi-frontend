@@ -53,10 +53,10 @@ function ConfirmLocationPage({ location, setStep }) {
               area,
             };
 
-            console.log(user);
+            // console.log(user);
             const res = await register(user);
             if (res.statusCode === 200) {
-              console.log(res);
+              // console.log(res);
               const user = res.value;
               const { userId, name, bio, picture, _id } = user;
               const date = new Date(user.createdAt);

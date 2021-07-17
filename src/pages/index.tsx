@@ -5,7 +5,7 @@ import useAppSession from "../hooks/useAppSession";
 
 export default function Index() {
   const { loading, registrationStarted, isLoggedIn } = useAppSession();
-  console.log({ loading });
+  // console.log({ loading });
 
   const router = useRouter();
   if (loading) return <FullPageLoader />;

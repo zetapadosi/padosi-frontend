@@ -10,7 +10,7 @@ import { useAppSelector } from "../hooks/useRedux";
 import Spinner from "./Spinner";
 
 export default function PostCard(props: Props) {
-  console.log(props);
+  // console.log(props);
   const {
     postText: text,
     postedBy: by,
@@ -153,17 +153,17 @@ export default function PostCard(props: Props) {
                   const inp = e.target as HTMLInputElement;
                   if (e.key === "Enter") {
                     setLoadingNewComment(true);
-                    console.log(inp.value.length);
+                    // console.log(inp.value.length);
 
                     const commmentData = {
                       commentText: inp.value,
                       postId,
                     };
 
-                    console.log(commmentData);
+                    // console.log(commmentData);
 
                     const data = await addComment(commmentData);
-                    console.log(data);
+                    // console.log(data);
 
                     if (data.statusCode === 200) {
                       data.value.comments.reverse();

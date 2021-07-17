@@ -67,7 +67,7 @@ export default function NewPost() {
             postText,
             tags,
           };
-          console.log(JSON.stringify(post));
+          // console.log(JSON.stringify(post));
           await createPost(post);
           setLoading(false);
           router.push("/home");
