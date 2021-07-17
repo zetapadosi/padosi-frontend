@@ -12,12 +12,12 @@ function MyApp({ Component, pageProps }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   return (
     <ReduxProvider store={store}>
-      <main className={`${isDarkMode ? "dark" : ""} h-full bg-primary-bg`}>
+      <main className={`${isDarkMode ? "dark" : ""} h-full`}>
         <Head>
           <link rel="icon" type="image/png" href="/favicon.ico" />
           <title>Padosi - Your Friendly Neighborhood App</title>
         </Head>
-        <div className="min-h-full dark:bg-gray-800">
+        <div className="min-h-full dark:bg-gray-800 bg-primary-bg">
           <Provider session={pageProps.session}>
             <Component {...pageProps} />
           </Provider>
