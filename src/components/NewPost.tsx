@@ -59,7 +59,7 @@ export default function NewPost() {
       </div>
       <Button
         primary
-        disabled={postText.length < 30}
+        disabled={!(postText.length > 30 && tags.length > 0)}
         isLoading={loading}
         onClick={async () => {
           setLoading(true);

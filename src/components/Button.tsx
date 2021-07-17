@@ -11,11 +11,11 @@ export default function Button(props: Props) {
       className={classnames(
         "text-primary font-medium rounded-md focus:outline-none p-3",
         {
-          "bg-primary-light cursor-not-allowed": disabled,
-          "bg-primary text-white": primary,
+          "bg-primary text-white": primary && !disabled,
           "bg-white dark:bg-primary-dark dark:text-white": !primary,
           "rounded-full": pill,
           "w-full": full,
+          "bg-primary-light cursor-not-allowed text-white": disabled,
         },
         styles
       )}
