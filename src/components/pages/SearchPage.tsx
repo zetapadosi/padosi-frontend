@@ -4,11 +4,8 @@ import Button from "../../components/Button";
 import Tag from "../Tag";
 import { TrendingUpIcon, SupportIcon, XIcon } from "@heroicons/react/outline";
 import { useEffect, useRef, useState } from "react";
-import { useAppSelector } from "../../hooks/useRedux";
 import { searchPostsByTags } from "../../api/post";
-import FullPageLoader from "../FullPageLoader";
 import PostCardList from "../PostCardList";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useRouter } from "next/router";
 
 export default function SearchPage() {
