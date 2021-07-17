@@ -34,7 +34,7 @@ export default function SettingsPage() {
             localStorage.removeItem("padosiEmail");
             localStorage.removeItem("userFrom");
             await signOut();
-            await oAuthLogout({ callbackUrl: "http://localhost:3000" });
+            await oAuthLogout();
           }}
         >
           Logout

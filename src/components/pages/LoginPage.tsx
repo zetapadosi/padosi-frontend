@@ -21,7 +21,7 @@ export default function LoginPage() {
           full
           styles="shadow"
           onClick={() => {
-            oAuthLogin("facebook", { callbackUrl: "http://localhost:3000" });
+            oAuthLogin("facebook");
             localStorage.setItem("userFrom", "facebook");
           }}
         >
@@ -31,7 +31,7 @@ export default function LoginPage() {
           full
           styles="shadow"
           onClick={() => {
-            oAuthLogin("google", { callbackUrl: "http://localhost:3000" });
+            oAuthLogin("google");
             localStorage.setItem("userFrom", "google");
           }}
         >
