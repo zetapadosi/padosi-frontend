@@ -1,7 +1,6 @@
 import MobileHome from "../layouts/MobileHome";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import Tag from "../Tag";
 import { TrendingUpIcon, SupportIcon, XIcon } from "@heroicons/react/outline";
 import { useEffect, useRef, useState } from "react";
 import { searchPostsByTags } from "../../api/post";
