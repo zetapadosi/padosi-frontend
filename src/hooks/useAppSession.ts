@@ -8,7 +8,6 @@ import { useAppSelector } from "./useRedux";
 
 export default function useAppSession() {
   const [loading, setLoading] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
   const [registrationStarted, setRegistrationStarted] = useState(false);
   const [session, sLoading] = useSession();
   const dispatch = useDispatch();

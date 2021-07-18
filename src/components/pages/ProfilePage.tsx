@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 
 export default function ProfilePage() {
   const [page, setPage] = useState(0);
+  const [joined, setJoined] = useState("");
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
@@ -40,7 +41,12 @@ export default function ProfilePage() {
       }
       const data = await getUserProfile(profileId);
       // console.log(data);
-      if (profileId !== user.userId) setUserData(data.user);
+      if (profileId !== user.userId) {
+        setUserData(data.user);
+        const date = new Date(data.user.createdAt);
+        const joined = date.toDateString().split(" ")[1] + " " + date.toDateString().split(" ")[3];
+        setJoined(joined);
+      }
       data.userPost.reverse();
       const postsArray = data.userPost;
       if (postsArray.length < 10) setHasMore(false);
@@ -69,7 +75,7 @@ export default function ProfilePage() {
                 </span>
                 <span className="mb-1 flex items-center gap-2">
                   <CalendarIcon className="inline w-5" />
-                  <span>Joined {userData.joined}</span>
+                  <span>Joined {userData.joined || joined}</span>
                 </span>
                 <span className="flex items-center gap-2">
                   <PencilAltIcon className="inline w-5" />

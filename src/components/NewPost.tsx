@@ -33,7 +33,7 @@ export default function NewPost() {
         onKeyDown={(e) => {
           const inp = e.target as HTMLInputElement;
           if (e.key === "Enter") {
-            setTags([...tags, inp.value]);
+            setTags([...tags, inp.value.toLowerCase().trim()]);
             inp.value = "";
           }
         }}
