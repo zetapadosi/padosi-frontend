@@ -5,7 +5,7 @@
 Padosi helps you connect with your neighbors and community.
 
 ### Tech Stack
-React - Redux - Express
+Next.js - Redux - Express
 
 - [Production](http://padosi-frontend.vercel.app/)
 
