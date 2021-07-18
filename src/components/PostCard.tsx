@@ -43,7 +43,7 @@ export default function PostCard(props: Props) {
     picture = by.picture,
     name = by.name;
 
-  console.log(isLiked, likes);
+  // console.log(isLiked, likes);
 
   // console.log(comments);
 
