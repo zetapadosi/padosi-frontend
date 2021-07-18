@@ -40,7 +40,7 @@ export default function EditRadiusPage() {
           router.push(`/home`);
         }}
       >
-        Update Radius
+        Update
       </Button>
     </MobileHome>
   );

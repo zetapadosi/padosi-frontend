@@ -14,6 +14,7 @@ export default function EditBioPage() {
   const dispatch = useAppDispatch();
   return (
     <MobileHome>
+      <h3 className="font-bold text-left text-xl py-2 text-primary">Update Bio</h3>
       <textarea
         className="rounded-lg w-full p-3 resize-none"
         rows={10}
@@ -43,7 +44,7 @@ export default function EditBioPage() {
           router.push(`/profile/${userId}`);
         }}
       >
-        Update Bio
+        Update
       </Button>
     </MobileHome>
   );
