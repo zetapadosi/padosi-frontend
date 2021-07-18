@@ -4,6 +4,7 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import TextLogo from "../../components/TextLogo";
 import MessageBox from "../MessageBox";
+import { signOut } from "next-auth/client";
 
 function SelectLocationPage({ setLocation, setStep }) {
   const [doesBrowserSupportGeolocation, setDoesBrowserSupportGeolocation] = useState(false);
@@ -29,13 +30,25 @@ function SelectLocationPage({ setLocation, setStep }) {
   return (
     <>
       <nav className="grid grid-cols-3 py-2 px-4 items-center bg-white shadow-sm">
+        <Button
+          primary
+          pill
+          styles="justify-self-start px-3 py-1 md:px-5"
+          onClick={async () => {
+            localStorage.removeItem("padosiEmail");
+            localStorage.removeItem("userFrom");
+            await signOut();
+          }}
+        >
+          Cancel
+        </Button>
         <div className="col-start-2 text-center">
           <TextLogo lg />
         </div>
         <Button
           primary
           pill
-          styles="justify-self-end px-3 py-1 md:px-5 md:py-1"
+          styles="justify-self-end px-3 py-1 md:px-5"
           onClick={async () => {
             if (inputref.current.value) {
               const address = inputref.current.value;
