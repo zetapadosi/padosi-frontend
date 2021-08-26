@@ -48,4 +48,5 @@ If the answer to any of the above questions is yes, Padosi is here to your rescu
 - Sort posts chronologically or by popularity/trending
 - Limit posts to 1 per user per day (limit not applicable for posts with tags 'urgent' or 'emergency')
 
+### ⚡ Performance
 ![LightHouse Performance](https://user-images.githubusercontent.com/85797189/126058155-65f306db-7595-40da-aa2c-0bc7400f6bc2.jpg)
