@@ -14,7 +14,7 @@ Padosi helps you connect with your neighbors and community.
 - Do you wish there was an easier way to find friends or like-minded people around you?
 - Do you wish it was easier to find sales/deals/offers from shops and services around you?
 - Do you like to be updated about the latest news near you?
-If the answer to any of the above questions is yes, Padosi is here to your rescue.
+- If the answer to any of the above questions is yes, Padosi is here to your rescue!
 
 ### 🌟Features
 - Read posts from 1-10 km radius (User can set)
