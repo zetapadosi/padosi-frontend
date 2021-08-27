@@ -40,6 +40,7 @@ Padosi helps you connect with your neighbors and community.
 - **External API** - Google Maps
 
 ### 👨‍💻 Backend Architecture
+- **Language** - JavaScript (Node.js)
 - **Database** - MongoDB
 - **Framework** - Express.js
 - **API** - REST
